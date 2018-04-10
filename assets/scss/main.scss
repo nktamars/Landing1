@@ -1,0 +1,630 @@
+html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}
+@function vh($object) {
+    $vh: (974 * 0.01) * 1px;
+    @return ($object / $vh) * 1vh;
+}
+
+.container{
+    max-width: 100%;
+    margin: 0 auto;
+}
+*{
+    box-sizing: border-box;
+  }
+  img{
+    display: block;
+    max-width: 100%;
+  }
+  body{
+    font-family: "Arial", sans-serif;
+    line-height: vh(24px);
+    font-weight: 400;
+    overflow: hidden;
+    color:  #fffffe;
+    background: url("../img/body-bg.jpg") no-repeat 50% 50%;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    background: red;
+  }
+  //////////////BUTTONS///////
+
+  $white: #ececec;
+  $black: #111111;
+  $red1: #8d0404;
+  $red2: #ff2b2b;
+  $colorPrimary: $red2;
+  $colorSecondary: $red1;
+  $cubic-bezier:cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  //split button mixin
+  @mixin btn__split($foregroundColor, $backgroundColor, $textColor) {
+      .btn {
+          position: relative;
+          text-decoration: none;
+          text-transform: uppercase;
+          margin: 0 auto;
+          padding: 1rem 2.5rem;
+          color:  #ffffff;
+          font-size: 30px;
+          font-weight: 900;
+          letter-spacing: 1.5px;
+          line-height: 24px;
+          text-align: center;
+          text-shadow: 0px 3px 18px rgba(0, 0, 0, 0.77);
+          transition: all 0.5s $cubic-bezier 0.15s;
+          @media screen and (max-device-height: 854px) and (min-device-width: 320px) and (orientation: portrait){
+              font-size: 24px;
+          }
+          &::after,
+          &::before {
+              content: "";
+              position: absolute;
+              width: 25px;
+              height: 25px;
+              box-shadow: 0px 3px 18px 0px rgba(0, 0, 0, 0.77);              
+              transition: all 0.5s $cubic-bezier;
+              z-index: -2;
+              border-radius: 50%;
+          }
+          &::before {
+              background-color: $backgroundColor;
+              top: -0.75rem;
+              left: 0.5rem;
+              animation: top 2s $cubic-bezier 0.25s infinite alternate;
+          }
+          &::after {
+              background-color: $foregroundColor;
+              top: 3rem;
+              left: 11.5rem;
+              animation: bottom 2s $cubic-bezier 0.25s infinite alternate;
+          }
+          &:hover {
+              color: white;
+              &::before,
+              &::after {
+                  top: 0;
+                  height: 100%;
+                  width: 100%;
+                  border-radius: 0;
+                  animation: none;
+              }
+              &::after {
+                  left: -0.5rem;
+              }
+              &::before {
+                  top: 0.5rem;
+                  left: 0rem;
+              }
+          }
+      }
+  }
+  
+ 
+
+  @keyframes top{
+      from{
+          transform: translate(0, 0);
+      }
+      to {
+          transform: translate(10rem, 0);
+      }
+  }
+  @keyframes bottom{
+      from{
+          transform: translate(0, 0);
+      }
+      to{
+          transform: translate(-10rem, 0);
+      }
+  }
+  
+  @include btn__split($colorPrimary, $colorSecondary, $black);
+  
+  
+
+/////HEADER////
+.header{
+    &__logo{
+        padding: vh(20px) 0 vh(20px) vh(50px);
+        background: url("../img/logo-bg.png") no-repeat;
+        &-link{
+            color:  #fffffe;
+            font-size: vh(38px);
+            letter-spacing: vh(0.95px);
+            text-transform: uppercase;
+            line-height: vh(24px);
+            text-decoration: none;
+        }
+    }
+}
+
+  
+/////MAIN/////
+.title-brake{
+    display: none;
+}
+.main{
+    &__nav{ 
+        position: absolute;
+        left: vh(-5px);
+        top: 10%;
+        transform: translate(0%, 10%);
+    }
+    &__ul{
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        padding-left: 0;
+        &-list{
+            width: vh(304px);
+            height: vh(70px);
+            padding: vh(21px) 0 vh(27px) vh(40px);
+            margin: 0 0 vh(30px) 0;
+            background:  url("../img/bookmark.svg") no-repeat;
+            text-decoration: none;
+            font-family: 'ArialNarrow', sans-serif;
+            color:  #d7d7d7;
+            font-size: vh(30px);
+            transition: 0.3s ease all;
+            &:hover{
+                text-indent: 5px;
+            }
+            &-last{
+                padding: vh(21px) 0 vh(27px) vh(40px);
+                background:  url("../img/bookmark-green.svg") no-repeat;
+            }
+        }
+        &-tablet{
+            display: flex;
+            flex-direction: column;
+            padding-left: 0;
+            margin: 0;
+            list-style: none;
+            &-list{
+                width: vh(304px);
+                height: vh(70px);
+                padding: vh(21px) 0 vh(27px) vh(40px);
+                margin: 0 0 vh(30px) 0;
+                background:  url("../img/bookmark.svg") no-repeat;
+                &:last-child{
+                    background:  url("../img/bookmark-green.svg") no-repeat;
+                }
+            }
+        }
+    }
+    &__title{
+        font-size: vh(60px);
+        font-weight: 700;
+        letter-spacing: vh(1.5px);
+        line-height: normal;
+        white-space: nowrap;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    &__text{
+        font-size: vh(18px);    
+        letter-spacing: vh(0.45px);
+        line-height: vh(26px);
+        margin: vh(32px) 0 0 0;
+        text-align: center;
+        
+    }
+    &__link{
+        color:  #ffffff;
+        height: vh(60px);
+        font-size: vh(30px);
+        font-weight: 700;
+        letter-spacing: vh(1.5px);
+        padding: vh(18px) vh(88px) vh(19px);
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none; 
+    }
+    &__button{
+        display: flex;
+        justify-content: center;
+        margin: vh(70px) 0 0 0;
+    }
+    &__content{
+        height: vh(330px);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/* Large Landscape */
+@media screen and (min-device-height: 800px) and (max-device-width: 1366px) and (orientation: landscape) {
+    .header{
+        &__logo{
+            padding: vh(15px) 0 vh(15px) vh(30px);
+            &-link{
+                font-size: vh(30px);
+                letter-spacing: vh(0.75px);
+                line-height: vh(24px);
+            }
+        }
+    }
+    /////MAIN/////
+    .main{
+        &__ul{
+            &-list{
+                margin: 0 0 vh(20px) 0;
+                &-link{
+                    font-size: vh(30px);
+                }
+            }
+        }
+        &__title{
+            font-size: vh(46px);
+            letter-spacing: vh(1.15px);
+        }
+        &__text{
+            font-size: vh(16px);    
+            line-height: vh(22px);
+            margin: vh(32px) 0 0 0;
+            
+        }
+        &__link{
+            font-size: vh(26px);
+            letter-spacing: vh(1.3px);
+            padding: vh(18px) vh(71px);  
+        }
+        &__button{
+            display: flex;
+            justify-content: center;
+            margin: vh(50px) 0 0 0;
+        }
+    }
+}
+
+/* Large Portrait */
+@media screen and (min-device-height: 800px) and (max-device-width: 1366px) and (orientation: portrait) {
+    .header{
+        &__logo{
+            padding: vh(15px) 0 vh(15px) vh(30px);
+            &-link{
+                font-size: vh(30px);
+                letter-spacing: vh(0.75px);
+                line-height: vh(24px);
+            }
+        }
+    }
+    /////MAIN/////
+    .main{
+        &__ul{
+            &-list{
+                width: vh(190px);
+                height: vh(50px);
+                padding: vh(17px) 0 vh(17px) vh(30px);
+                margin: 0 0 vh(20px) 0;
+                &-last{
+                    padding: vh(17px) 0 vh(17px) vh(30px);
+                }
+                &-link{
+                    font-size: vh(30px);
+                }
+            }
+        }
+        &__title{
+            font-size: vh(46px);
+            font-weight: 700;
+            letter-spacing: vh(1.15px);
+        }
+        &__text{
+            font-size: vh(16px);    
+            line-height: vh(22px);
+            margin: vh(32px) 0 0 0;
+            
+        }
+        &__link{
+            font-size: vh(26px);
+            letter-spacing: vh(1.3px);
+            padding: vh(18px) vh(71px);
+            box-shadow: 0 vh(3px) vh(18px) 0 rgba(0, 0, 0, 0.41);  
+        }
+        &__button{
+            margin: vh(50px) 0 0 0;
+        }
+    }
+}
+
+/* Medium portrait */
+@media screen and (min-device-height: 600px) and (max-device-width: 1024px) and (orientation: portrait){
+    .header{
+        &__logo{
+            padding: vh(15px) 0 vh(15px) vh(30px);
+            &-link{
+                font-size: vh(30px);
+                letter-spacing: vh(0.75px);
+                line-height: vh(24px);
+            }
+        }
+    }
+    /////MAIN/////
+    .main{
+        &__nav{ 
+            width: 100%;
+        }
+        &__ul{
+            &-list{
+                width: vh(200px);
+                height: vh(50px);
+                padding: vh(10px) 0 vh(10px) vh(30px);
+                margin: 0 0 vh(20px) 0;
+                font-size: vh(20px);
+                background:  url("../img/bookmark.svg") no-repeat;
+                &-last{
+                    padding: vh(17px) 0 vh(17px) vh(30px);
+                    background:  url("../img/bookmark-green.svg") no-repeat;
+                }
+                &-link{
+                    font-size: vh(20px);
+                }
+            }
+            &-tablet{
+                position: absolute;
+                right: vh(-8px);
+                top: 0;
+                transform: translate(0%, 0%);
+                list-style: none;
+                &-list{
+                    width: vh(200px);
+                    height: vh(50px);
+                    padding: vh(10px) 0 vh(10px) vh(30px);
+                    margin: 0 0 vh(20px) 0;
+                    font-size: vh(20px);
+                    background:  url("../img/bookmark-left.svg") no-repeat !important;
+                    &:first-child{
+                        background:  url("../img/bookmark-left-green.svg") no-repeat !important;
+                    }
+                }
+            }
+        }
+        &__title{
+            font-size: vh(46px);
+            font-weight: 700;
+            letter-spacing: vh(1.15px);
+        }
+        &__text{
+            font-size: vh(16px);    
+            line-height: vh(22px);
+            margin: vh(32px) 0 0 0;
+        }
+        &__link{
+            font-size: vh(26px);
+            font-weight: 700;
+            letter-spacing: vh(1.3px);
+            padding: vh(18px) vh(71px);
+            box-shadow: 0 vh(3px) vh(18px) 0 rgba(0, 0, 0, 0.41);    
+        }
+        &__button{
+            margin: vh(50px) 0 0 0;
+        }
+    }
+}
+
+/* Medium Landscape */
+@media screen and (min-device-height: 600px) and (max-device-width: 1024px) and (orientation: landscape){
+    .header{
+        &__logo{
+            padding: vh(15px) 0 vh(15px) vh(30px);
+            &-link{
+                font-size: vh(30px);
+                letter-spacing: vh(0.75px);
+                line-height: vh(24px);
+            }
+        }
+    }
+    /////MAIN/////
+    .main{
+        &__nav{ 
+            width: 100%;
+        }
+        &__ul{
+            &-list{
+                width: vh(200px);
+                height: vh(50px);
+                padding: vh(10px) 0 vh(10px) vh(30px);
+                margin: 0 0 vh(20px) 0;
+                font-size: vh(20px);
+                background:  url("../img/bookmark.svg") no-repeat;
+                &-last{
+                    padding: vh(17px) 0 vh(17px) vh(30px);
+                    background:  url("../img/bookmark-green.svg") no-repeat;
+                }
+                &-link{
+                    font-size: vh(20px);
+                }
+            }
+            &-tablet{
+                position: absolute;
+                right: vh(-10px);
+                top: 0;
+                transform: translate(0%, 0%);
+                list-style: none;
+                &-list{
+                    width: vh(200px);
+                    height: vh(50px);
+                    padding: vh(10px) 0 vh(10px) vh(30px);
+                    margin: 0 0 vh(20px) 0;
+                    font-size: vh(20px);
+                    background:  url("../img/bookmark-left.svg") no-repeat !important;
+                    &:first-child{
+                        background:  url("../img/bookmark-left-green.svg") no-repeat !important;
+                    }
+                }
+            }
+        }
+        &__title{
+            font-size: vh(46px);
+            font-weight: 700;
+            letter-spacing: vh(1.15px);
+        }
+        &__text{
+            font-size: vh(16px);    
+            line-height: vh(22px);
+            margin: vh(32px) 0 0 0;
+            
+        }
+        &__link{
+            font-size: vh(26px);
+            letter-spacing: vh(1.3px);
+            padding: vh(18px) vh(71px); 
+        }
+        &__button{
+            margin: vh(50px) 0 0 0;
+        }
+    }
+}
+
+
+/* iPad */
+@media screen and (device-height: 1024px) and (device-width: 768px)  and (orientation: portrait) {
+    .header{
+        &__logo{
+            padding: vh(15px) 0 vh(15px) vh(30px);
+            &-link{
+                font-size: vh(30px);
+                letter-spacing: vh(0.75px);
+                line-height: vh(24px);
+            }
+        }
+    }
+    /////MAIN/////
+    .main{
+        &__nav{ 
+            width: 100%;
+        }
+        &__ul{
+            &-list{
+                width: vh(200px);
+                height: vh(50px);
+                padding: vh(10px) 0 vh(10px) vh(30px);
+                margin: 0 0 vh(20px) 0;
+                font-size: vh(20px);
+                background:  url("../img/bookmark.svg") no-repeat;
+                &-last{
+                    padding: vh(17px) 0 vh(17px) vh(30px);
+                    background:  url("../img/bookmark-green.svg") no-repeat;
+                }
+                &-link{
+                    font-size: vh(20px);
+                }
+            }
+            &-tablet{
+                position: absolute;
+                right: vh(-10px);
+                top: 0;
+                transform: translate(0%, 0%);
+                list-style: none;
+                &-list{
+                    width: vh(200px);
+                    height: vh(50px);
+                    font-size: vh(20px);
+                    padding: vh(10px) 0 vh(10px) vh(30px);
+                    margin: 0 0 vh(20px) 0;
+                    background:  url("../img/bookmark-left.svg") no-repeat !important;
+                    &:first-child{
+                        background:  url("../img/bookmark-left-green.svg") no-repeat !important;
+                    }
+                }
+            }
+        }
+        &__title{
+            font-size: vh(46px);
+            font-weight: 700;
+            letter-spacing: vh(1.15px);
+        }
+        &__text{
+            font-size: vh(16px);    
+            line-height: vh(22px);
+            margin: vh(32px) 0 0 0;
+            
+        }
+        &__link{
+            font-size: vh(26px);
+            letter-spacing: vh(1.3px);
+            padding: vh(18px) vh(71px);   
+        }
+        &__button{
+            margin: vh(50px) 0 0 0;
+        }
+        &__content{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+.br-none{
+    display: none;
+}
+
+/* Small Portrait */
+@media screen and (min-device-width: 320px) and (max-device-height: 854px) and (orientation: portrait) {
+
+   .header{
+        &__logo{
+            padding: 15px 0 15px 30px;
+            &-link{
+                font-size: 24px;
+                letter-spacing: 0.6px;
+                line-height: 24px;
+            }
+        }
+    }
+    /////MAIN/////
+    .title-brake{
+        display: block;
+    }
+    .br-none{
+        display: none;
+    }
+    .main{
+        &__content{
+            height: auto;
+        }
+        &__nav{ 
+            display: none;
+        }
+        &__title{
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.7px;
+            line-height: 36px;
+        }
+        &__text{
+            font-size: 16px;    
+            line-height: 22px;
+            margin: 32px 0 0 0;
+            
+        }
+        &__link{
+            color:  #ffffff;
+            height: 50px;
+            text-align: center;
+            background-color:  #d4000b;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1.1px;
+            border: 2px solid #d4000b;
+            padding: 17px 55px 18px;
+            border-radius: 5px;    
+        }
+        &__button{
+            margin: 50px 0 0 0;
+        }
+    }
+}
+
+
+
+
+
+
+
+
